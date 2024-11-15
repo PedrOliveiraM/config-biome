@@ -1,19 +1,19 @@
 # Configuração do Biome no Projeto
 
-Este guia fornece instruções para configurar o **Biome** no projeto, permitindo melhorar a formatação de código, análise estática e a padronização de estilos.
-
----
+## Este guia explica como configurar o **Biome** no seu projeto para melhorar a formatação de código, análise estática e padronização de estilos.
 
 ## Pré-requisitos
 
-- **Node.js**: Certifique-se de que o Node.js está instalado em seu sistema. Você pode baixá-lo [aqui](https://nodejs.org/).
-- **NPM** ou **Yarn**: Utilize um dos gerenciadores de pacotes para instalar o Biome.
+- **Node.js**: Certifique-se de que o Node.js está instalado. [Baixar Node.js](https://nodejs.org/).
+- **NPM** ou **Yarn**: Necessário para instalar dependências.
+
+---
 
 ## Passo a Passo
 
-### 1. Instalação do Biome
+### 1. Instale o Biome
 
-Para instalar o Biome localmente no projeto, execute um dos seguintes comandos na raiz do projeto:
+Na raiz do projeto, execute um dos comandos abaixo para instalar o Biome como dependência de desenvolvimento:
 
 ```bash
 npm install biome --save-dev
@@ -21,13 +21,15 @@ npm install biome --save-dev
 yarn add biome --dev
 ```
 
-### 2. Configuração do Biome
+---
 
-Após a instalação, você pode configurar o Biome usando o comando automático ou criando o arquivo manualmente:
+### 2. Configure o Biome
+
+Você pode configurar o Biome de duas formas: automaticamente ou manualmente.
 
 #### Configuração automática
 
-Execute o comando abaixo para iniciar uma configuração básica:
+Execute o comando abaixo para gerar uma configuração padrão:
 
 ```bash
 npx @biomejs/biome init
@@ -35,100 +37,97 @@ npx @biomejs/biome init
 
 #### Configuração manual
 
-Crie um arquivo `biome.config.json` na raiz do projeto com o seguinte conteúdo para personalizar as regras e o estilo:
+Crie um arquivo `biome.json` na raiz do projeto com o seguinte conteúdo para personalizar as regras:
 
 ```json
 {
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
   "formatter": {
-    "enabled": true,
-    "formatWithErrors": false,
-    "ignore": [],
-    "attributePosition": "auto",
-    "indentStyle": "tab",
-    "indentWidth": 1,
-    "lineWidth": 80,
-    "lineEnding": "lf"
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 90
   },
   "javascript": {
     "formatter": {
-      "arrowParentheses": "always",
-      "bracketSameLine": false,
-      "bracketSpacing": true,
+      "arrowParentheses": "asNeeded",
       "jsxQuoteStyle": "double",
-      "quoteProperties": "asNeeded",
-      "semicolons": "always",
-      "trailingCommas": "all"
+      "quoteStyle": "single",
+      "semicolons": "asNeeded",
+      "trailingCommas": "es5"
     }
   },
-  "typescript": {
-    "formatter": {
-      "arrowParentheses": "always",
-      "bracketSameLine": false,
-      "bracketSpacing": true,
-      "jsxQuoteStyle": "double",
-      "quoteProperties": "asNeeded",
-      "semicolons": "always",
-      "trailingCommas": "all"
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": {
+        "noNonNullAssertion": "off",
+        "useImportType": "off"
+      }
     }
   },
-  "json": {
-    "formatter": {
-      "trailingCommas": "none"
-    }
+  "files": {
+    "ignore": ["node_modules", ".history"]
   }
 }
 ```
 
-Aqui estão algumas das configurações básicas para o Biome:
-- `formatter`: Define opções de formatação, como uso de tabulação e comprimento de linha.
-- `javascript` e `typescript`: Configurações específicas para JavaScript e TypeScript, como estilo de aspas e uso de ponto e vírgula.
+> ⚠️ **Nota:** Se você estiver usando Prettier ou ESLint no projeto, conflitos podem ocorrer. A extensão do Biome no VS Code pode ajudar na migração dessas configurações.
 
-### 3. Executando o Biome
+---
 
-Você pode rodar o Biome para verificar e corrigir problemas de formatação no projeto:
+### 3. Execute o Biome
 
-#### Verificando problemas
+Após a configuração, você pode verificar e corrigir problemas de formatação no projeto:
 
-```bash
-npx biome check .
-```
+- **Verificar problemas**:
 
-#### Corrigindo problemas automaticamente
+  ```bash
+  npx biome check .
+  ```
 
-```bash
-npx biome fix .
-```
+- **Corrigir automaticamente**:
+  ```bash
+  npx biome fix .
+  ```
 
-### 4. Integrando o Biome com o VS Code
+---
 
-Para facilitar o uso do Biome no VS Code, instale a extensão **Biome** na loja de extensões do editor.
+### 4. Integração com o VS Code
 
-### 5. Configurando o Ambiente de Desenvolvimento
+Para utilizar o Biome diretamente no VS Code:
 
-Para que o código seja automaticamente formatado ao salvar no VS Code, siga os passos abaixo:
+1. Instale a extensão **Biome** na loja de extensões do editor.
+2. Configure o formatador padrão no VS Code:
 
-1. Crie uma pasta `.vscode` na raiz do projeto.
-2. Dentro dessa pasta, crie um arquivo `settings.json` com o seguinte conteúdo:
+   Crie ou edite o arquivo `.vscode/settings.json` na raiz do projeto com o seguinte conteúdo:
 
-    ```json
-    {
-      "editor.formatOnSave": true,
-      "editor.defaultFormatter": "biomejs.biome",
-      "[typescript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
-      }
-    }
-    ```
+   ```json
+   {
+     "editor.formatOnSave": true,
+     "editor.defaultFormatter": "biomejs.biome"
+   }
+   ```
 
-Essas configurações garantem que o Biome seja usado como formatador padrão e que o editor formate o código ao salvar.
+Essas configurações garantem a formatação automática ao salvar arquivos.
+
+---
+
+<h3>Comparação com e sem Biome</h3>
+
+<p align="center">
+  <img src="Before Biome.png" alt="Antes do Biome" width="45%" />
+  <img src="After Biome.png" alt="Depois do Biome" width="45%" />
+</p>
 
 ---
 
 ### Referências
 
 - [Documentação oficial do Biome](https://biomejs.dev/docs)
-- [Biome no GitHub](https://github.com/biomejs/biome)
+- [Repositório do Biome no GitHub](https://github.com/biomejs/biome)
 
 ---
-
-Este guia deve ajudar você a configurar e utilizar o Biome em seu projeto com eficiência.

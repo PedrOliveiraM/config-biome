@@ -1,0 +1,15 @@
+{
+  "name": "config-biome",
+  "version": "1.0.0",
+  "description": "Este guia fornece instruções para configurar o **Biome** no projeto, permitindo melhorar a formatação de código, análise estática e a padronização de estilos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "biome": "^0.3.3"
+  }
+}
