@@ -18,6 +18,8 @@ Na raiz do projeto, execute um dos comandos abaixo para instalar o Biome como de
 ```bash
 npm install biome --save-dev
 # ou
+npm install --save-dev --save-exact @biomejs/biome
+# ou
 yarn add biome --dev
 ```
 
